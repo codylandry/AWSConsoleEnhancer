@@ -1,0 +1,13 @@
+{
+  "manifest_version": 2,
+  "name": "SQS Message Parser",
+  "description": "This extension formats SQS messages slightly better in the aws console",
+  "version": "0.1",
+  "content_scripts": [
+    {
+      "matches": ["https://*.console.aws.amazon.com/sqs/*"],
+      "js": ["content.js"],
+      "css": ["prism.css"]
+    }
+  ]
+}
