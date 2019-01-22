@@ -7,7 +7,7 @@
     {
       "matches": ["*://*.console.aws.amazon.com/*"],
       "js": [ "prism.js", "app.js"],
-      "css": ["prism.css"]
+      "css": ["main.css", "prism.css"]
     }
   ]
 }

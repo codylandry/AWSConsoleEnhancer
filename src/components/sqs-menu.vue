@@ -15,9 +15,19 @@
         // prettifies json in sqs message modal
         const pre = document.querySelector('pre')
         if (pre) {
-          pre.innerHTML = `<code>${JSON.stringify(deepParse(pre.innerText), null, 2)}</code>`
-          pre.classList = [...pre.classList, 'language-json']
+          pre.innerHTML = `
+            <code>
+              ${JSON.stringify(deepParse(pre.innerText), null, 2)}
+            </code>`
+          pre.classList = ['language-json']
           pre.parentElement.style.overflow = 'auto'
+
+          const fullscreenToggleButton = document.createElement('button')
+          fullscreenToggleButton.innerText = 'Toggle Fullscreen'
+          fullscreenToggleButton.classList.add('fullscreen-toggle-button')
+          fullscreenToggleButton.addEventListener('click', () => pre.classList.toggle('fullscreen-code'))
+
+          pre.appendChild(fullscreenToggleButton)
         }
 
         Prism.highlightAll()

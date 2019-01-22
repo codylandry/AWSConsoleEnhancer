@@ -20,11 +20,25 @@
 
           jsonElements.map(el => {
             const jsonObj = deepParse(el.innerText)
-            console.log(jsonObj)
 
-            el.innerHTML = `<pre><code>${JSON.stringify(jsonObj, null, 2)}</code></pre>`
-            el.classList = ['language-json']
+            el.innerHTML = `<div><pre><code>${JSON.stringify(jsonObj, null, 2)}</code></pre></div>`
+            el.classList = 'language-json code-block'
             el.parentElement.style.overflow = 'auto'
+
+            const toggleFullscreen = () => fullScreenEl.style.visibility = (fullScreenEl.style.visibility === 'hidden' ? 'visible' : 'hidden')
+
+            const fullscreenToggleButton = document.createElement('button')
+            fullscreenToggleButton.innerText = 'Toggle Fullscreen'
+            fullscreenToggleButton.classList.add('fullscreen-toggle-button')
+            fullscreenToggleButton.addEventListener('click', toggleFullscreen)
+            el.appendChild(fullscreenToggleButton)
+
+            const fullScreenEl = el.cloneNode(true)
+            fullScreenEl.style.visibility = 'hidden'
+            fullScreenEl.classList.add('fullscreen-code')
+            const fullScreenElBtn = fullScreenEl.querySelector('button')
+            fullScreenElBtn.addEventListener('click', toggleFullscreen)
+            document.body.appendChild(fullScreenEl)
           })
           Prism.highlightAll()
         }
