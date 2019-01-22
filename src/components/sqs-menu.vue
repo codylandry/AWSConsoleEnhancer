@@ -18,6 +18,8 @@
           pre.parentElement.style.overflow = 'auto'
         }
 
+        Prism.highlightAll()
+
       });
       observer.observe(document.body, {childList: true})
     }

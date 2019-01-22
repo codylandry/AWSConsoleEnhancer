@@ -6,7 +6,8 @@
   "content_scripts": [
     {
       "matches": ["*://*.console.aws.amazon.com/*"],
-      "js": ["app.js"]
+      "js": [ "prism.js", "app.js"],
+      "css": ["prism.css"]
     }
   ]
 }
