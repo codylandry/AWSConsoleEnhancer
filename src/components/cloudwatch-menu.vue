@@ -5,8 +5,6 @@
 </template>
 
 <script>
-  import cloneDeep from 'lodash/cloneDeep'
-
   function deepParse (objectToParse) {
     let obj
     try {
@@ -39,7 +37,7 @@
       const observer = new MutationObserver(function(mutations) {
 
         // // prettifies json in sqs message modal
-        const [...jsonElements] = document.querySelectorAll('.cwdb-log-viewer-table-row-header.expanded + .cwdb-log-viewer-table-row-details div.cwdb-json:not(.language-json)')
+        const [...jsonElements] = document.querySelectorAll('div.cwdb-json:not(.language-json)')
 
         if (jsonElements.length) {
 
