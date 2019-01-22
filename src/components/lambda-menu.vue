@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button v-if="$route.hash.startsWith('#/functions/')" @click="goToCloudWatchInsights">CloudWatch Insights</button>
+    <button v-if="isOnLambdaPage" @click="goToCloudWatchInsights">CloudWatch Insights</button>
   </div>
 </template>
 
@@ -8,6 +8,11 @@
 
   export default {
     name: 'LambdaMenu',
+    computed: {
+      isOnLambdaPage () {
+        return this.$route.hash.startsWith('#/functions/')
+      }
+    },
     methods: {
       goToCloudWatchInsights () {
         const url = "https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logs-insights:queryDetail=~(end~0~start~-900~timeType~'RELATIVE~unit~'seconds~editorString~'fields*20*20*40timestamp*2c*20*40message*0a*20*7c*20limit*2020~isLiveTail~false~queryId~'CW_LOG_NAME~source~'CW_LOG_NAME)";
