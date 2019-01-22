@@ -1,6 +1,6 @@
 {
   "name": "awsconsoleenhancer",
-  "version": "1.0.0",
+  "version": "0.2",
   "description": "![](https://i.giphy.com/media/10nMEclFWTPCp2/giphy-downsized.gif)",
   "main": "index.js",
   "scripts": {
