@@ -1,0 +1,31 @@
+{
+  "name": "awsconsoleenhancer",
+  "version": "1.0.0",
+  "description": "![](https://i.giphy.com/media/10nMEclFWTPCp2/giphy-downsized.gif)",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel src/*",
+    "build": "parcel build src/* manifest.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codylandry/AWSConsoleEnhancer.git"
+  },
+  "author": "Cody Landry <cody.landry@inmar.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codylandry/AWSConsoleEnhancer/issues"
+  },
+  "homepage": "https://github.com/codylandry/AWSConsoleEnhancer#readme",
+  "dependencies": {
+    "lodash": "^4.17.11"
+  },
+  "devDependencies": {
+    "cssnano": "^4.1.8",
+    "parcel-plugin-static-files-copy": "^2.0.0"
+  },
+  "staticFiles": {
+    "staticPath": "src/static"
+  }
+}
