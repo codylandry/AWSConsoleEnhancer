@@ -5,13 +5,8 @@
   "version": "0.1",
   "content_scripts": [
     {
-      "matches": ["https://*.console.aws.amazon.com/sqs/*"],
-      "js": ["sqs.js"],
-      "css": ["prism.css"]
-    },
-    {
-      "matches": ["https://console.aws.amazon.com/lambda/*"],
-      "js": ["lambda.js"]
+      "matches": ["*://*.console.aws.amazon.com/*"],
+      "js": ["app.js"]
     }
   ]
 }

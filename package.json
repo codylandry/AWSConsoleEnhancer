@@ -19,13 +19,22 @@
   },
   "homepage": "https://github.com/codylandry/AWSConsoleEnhancer#readme",
   "dependencies": {
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.11",
+    "vue": "^2.5.22",
+    "vue-hot-reload-api": "^2.3.1",
+    "vue-router": "^3.0.2"
   },
   "devDependencies": {
+    "@vue/component-compiler-utils": "^2.5.0",
     "cssnano": "^4.1.8",
-    "parcel-plugin-static-files-copy": "^2.0.0"
+    "parcel-plugin-static-files-copy": "^2.0.0",
+    "vue-template-compiler": "^2.5.22"
   },
   "staticFiles": {
-    "staticPath": "src/static"
+    "staticPath": "src/static",
+    "watcherGlob": "**"
+  },
+  "alias": {
+    "vue": "./node_modules/vue/dist/vue.common.js"
   }
 }
