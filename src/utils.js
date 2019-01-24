@@ -6,8 +6,6 @@ export function deepParse (objectToParse) {
     obj = objectToParse
   }
   for (const prop in obj) {
-    console.log(prop, obj)
-
     if (obj.hasOwnProperty(prop)) {
       try {
         obj[prop] = JSON.parse(obj[prop])
