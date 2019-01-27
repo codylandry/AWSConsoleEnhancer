@@ -1,8 +1,8 @@
 <template>
   <div>
     <template v-for="(code, id) in codeBlocks">
-      <portal :target-el="id">
-        <pre class="language-json">
+      <portal :target-el="id" :key="code">
+        <pre class="language-json" :style="{'max-height': maxHeight}">
           <button class="fullscreen-toggle-button" @click="setFullscreenBlock(id)">Toggle Fullscreen</button>
           <code> {{code}} </code>
         </pre>
@@ -25,27 +25,45 @@
       selector: {
         type: String,
         required: true
+      },
+      maxHeight: {
+        type: String,
+        'default': '100%'
       }
     },
     data () {
       return {
         codeBlocks: {},
-        fullscreenBlock: {}
+        fullscreenBlock: {},
       }
     },
     async created () {
       const observer = new MutationObserver(async (mutations) => {
-
         const [...jsonElements] = document.querySelectorAll(this.selector)
 
         const views = jsonElements.reduce((acc, el) => {
-          const code = JSON.stringify(deepParse(el.innerText), null, 2)
-          const portal = document.createElement('div')
-          const id = `json-view-${Math.floor(Math.random() * 100000)}`
-          portal.setAttribute('id', id)
-          el.replaceWith(portal)
+          if (!el.dataset.jsonViewerId) {
+            const portal = document.createElement('div')
+            const id = `json-view-${Math.floor(Math.random() * 100000)}`
 
-          return { ...acc, [`#${id}`]: code }
+            el.style.display = 'none'
+            el.dataset.jsonViewerId = id
+            portal.setAttribute('id', id)
+            el.parentElement.append(portal)
+          }
+
+          let code = ""
+          if (el.value && el.value.length) {
+            code = JSON.stringify(deepParse(el.value), null, 2)
+          } else {
+            code = JSON.stringify(deepParse(el.innerText), null, 2)
+          }
+
+          if (code !== this.codeBlocks[`#${el.dataset.jsonViewerId}`]) {
+            return { ...acc, [`#${el.dataset.jsonViewerId}`]: code }
+          }
+          return {...acc}
+
         }, {})
         this.$set(this, 'codeBlocks', {...this.codeBlocks, ...views})
         if (Object.keys(views).length) {

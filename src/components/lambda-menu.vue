@@ -1,13 +1,35 @@
 <template>
   <div>
     <button v-if="isOnLambdaPage" @click="goToCloudWatchInsights">CloudWatch Insights</button>
+    <code-viewer selector="#execution-result > textarea" v-if="testWindowOpen" max-height="300px"></code-viewer>
   </div>
 </template>
 
 <script>
-
+  import CodeViewer from './code-viewer'
   export default {
     name: 'LambdaMenu',
+    components: {
+      CodeViewer
+    },
+    data () {
+      return {
+        testWindowOpen: false
+      } // .awsui-textarea.awsui-textarea-readonly
+    },
+    async mounted () {
+      await this.$nextTick()
+      const observer = new MutationObserver(async (mutations) => {
+        const testResultWindow = document.querySelector('.overlay-container.execution-results')
+        const textarea = testResultWindow.querySelector('#execution-result > textarea')
+        if (textarea.value && textarea.value.length) {
+          this.testWindowOpen = true
+        } else {
+          this.testWindowOpen = false
+        }
+      })
+      observer.observe(document.body, {attributes: true, childList: true, subtree: true})
+    },
     computed: {
       isOnLambdaPage () {
         return this.$route.hash.startsWith('#/functions/')
