@@ -2,17 +2,21 @@
   <div>
     <template v-for="(code, id) in codeBlocks">
       <portal :target-el="id" :key="code">
-        <pre class="language-json" :style="{'max-height': maxHeight}">
-          <button class="fullscreen-toggle-button" @click="setFullscreenBlock(id)">Toggle Fullscreen</button>
-          <code> {{code}} </code>
-        </pre>
+        <div :class="prefs.theme">
+          <pre :style="{'max-height': maxHeight}">
+            <button class="fullscreen-toggle-button" @click="setFullscreenBlock(id)">Toggle Fullscreen</button>
+            <code class="language-json"> {{code}} </code>
+          </pre>
+        </div>
       </portal>
     </template>
 
-    <pre class="language-json" id="fullscreen-code-view" v-if="fullscreenBlock.id">
-      <button class="fullscreen-toggle-button" @click="clearFullscreenBlock">Toggle Fullscreen</button>
-      <code> {{ fullscreenBlock.code }} </code>
-    </pre>
+    <div :class="prefs.theme">
+      <pre id="fullscreen-code-view" v-if="fullscreenBlock.id">
+        <button class="fullscreen-toggle-button" @click="clearFullscreenBlock">Toggle Fullscreen</button>
+        <code class="language-json"> {{ fullscreenBlock.code }} </code>
+      </pre>
+    </div>
   </div>
 </template>
 
@@ -21,6 +25,7 @@
 
   export default {
     name: 'CodeViewer',
+    inject: ['prefs'],
     props: {
       selector: {
         type: String,
