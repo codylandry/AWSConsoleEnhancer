@@ -15,7 +15,7 @@
     data () {
       return {
         testWindowOpen: false
-      } // .awsui-textarea.awsui-textarea-readonly
+      }
     },
     watch: {
       $route: {
@@ -23,16 +23,18 @@
         immediate: true,
         async handler () {
           await this.$nextTick()
-          const observer = new MutationObserver(async (mutations) => {
-            const testResultWindow = document.querySelector('.overlay-container.execution-results')
-            const textarea = testResultWindow.querySelector('#execution-result > textarea')
-            if (textarea.value && textarea.value.length) {
-              this.testWindowOpen = true
-            } else {
-              this.testWindowOpen = false
-            }
-          })
-          observer.observe(document.body, {attributes: true, childList: true, subtree: true})
+          if (this.isOnLambdaPage) {
+            const observer = new MutationObserver(async (mutations) => {
+              const testResultWindow = document.querySelector('.overlay-container.execution-results')
+              const textarea = testResultWindow.querySelector('#execution-result > textarea')
+              if (textarea.value && textarea.value.length) {
+                this.testWindowOpen = true
+              } else {
+                this.testWindowOpen = false
+              }
+            })
+            observer.observe(document.body, {attributes: true, childList: true, subtree: true})
+          }
         }
       }
     },
