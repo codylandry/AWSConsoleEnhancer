@@ -44,7 +44,7 @@ const app = new Vue({
   template: `
     <div style="color: white; display: flex; justify-content: flex-end;align-items:center;">
       <router-view/>
-      <select v-model="prefs.theme" style="height: 22px;margin-left: 10px;">
+      <select v-model="prefs.theme" style="height: 22px; margin: 0 0 0 10px;">
         <option value="prism-theme--default">Default</option>
         <option value="prism-theme--dark">Dark</option>
         <option value="prism-theme--okaida">Okaida</option>
