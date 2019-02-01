@@ -1,12 +1,25 @@
 <template>
   <div>
+    <!--<portal target-el="#cloudwatch-insights-link" v-if="tabsVisible">-->
+      <!--<a class="awsui-tabs-tab awsui-tabs-tab-link" @click.prevent="goToCloudWatchInsights" href="#" id="cloudwatch-insights-link">-->
+        <!--<span class="awsui-tabs-tab-label">-->
+          <!--<span>-->
+            <!--<span>Cloudwatch Insights</span>-->
+          <!--</span>-->
+        <!--</span>-->
+      <!--</a>-->
+    <!--</portal>-->
     <button v-if="isOnLambdaPage" @click="goToCloudWatchInsights">CloudWatch Insights</button>
+
     <code-viewer selector="#execution-result > textarea" v-if="testWindowOpen" max-height="300px"></code-viewer>
   </div>
 </template>
 
 <script>
   import CodeViewer from './code-viewer'
+
+  let getNodes = str => new DOMParser().parseFromString(str, 'text/html').body.childNodes;
+
   export default {
     name: 'LambdaMenu',
     components: {
@@ -14,7 +27,9 @@
     },
     data () {
       return {
-        testWindowOpen: false
+        testWindowOpen: false,
+        tabsVisible: false,
+        logsTabActive: false
       }
     },
     watch: {
@@ -26,14 +41,26 @@
           if (this.isOnLambdaPage) {
             const observer = new MutationObserver(async (mutations) => {
               const testResultWindow = document.querySelector('.overlay-container.execution-results')
-              const textarea = testResultWindow.querySelector('#execution-result > textarea')
-              if (textarea.value && textarea.value.length) {
-                this.testWindowOpen = true
+
+              if (testResultWindow) {
+                const textarea = testResultWindow.querySelector('#execution-result > textarea')
+                if (textarea.value && textarea.value.length) {
+                  this.testWindowOpen = true
+                } else {
+                  this.testWindowOpen = false
+                }
               } else {
                 this.testWindowOpen = false
               }
             })
             observer.observe(document.body, {attributes: true, childList: true, subtree: true})
+
+            if (!document.getElementById('cloudwatch-insights-link')) {
+              const tabRow = document.querySelector('.awsui-tabs-variant-default > .awsui-tabs-header')
+              const [node] = getNodes(`<li class="awsui-tabs-tab" id="cloudwatch-insights-link" role="presentation"></li>`)
+              tabRow.appendChild(node)
+            }
+            this.tabsVisible = true
           }
         }
       }
@@ -74,3 +101,6 @@
 </script>
 
 
+<style>
+
+</style>
